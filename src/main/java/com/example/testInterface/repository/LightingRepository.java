@@ -12,109 +12,84 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-@Repository
-public class LightingRepository implements ILightingRepository{
-    private final static String fileName ="C:\\Users\\prodg\\IdeaProjects\\PracticeRestAPIGOOD\\src\\main\\resources\\DataContext.json";
 
-    public Lighting getByID(Long myClassId) {
-        List<Lighting> myClassList= new ArrayList<>();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            Gson gson = new Gson();
-            myClassList = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {}.getType());
-            bufferedReader.close();
-            System.out.println("Lighting objects have been read from " + fileName + " file.");
-        } catch (IOException e) {
-            e.printStackTrace();
+@Repository
+public class LightingRepository implements ILightingRepository {
+    private final static String fileName = "C:\\Users\\prodg\\IdeaProjects\\PracticeRestAPIGOOD\\src\\main\\resources\\DataContext.json";
+    private Gson gson;
+
+    private Comparator<Lighting> idComparator = new Comparator<Lighting>() {
+        @Override
+        public int compare(Lighting o1, Lighting o2) {
+            return o1.getId().compareTo(o2.getId());
         }
-        int classId=-1;
-        for (int i = 0; i < myClassList.size(); i++) {
-            if (myClassList.get(i).getId().equals(myClassId)) {
-                classId=i;
-                break;
-            }
-        }
-        return myClassList.get(classId);
+    };
+
+    public LightingRepository(Gson gson) {
+        this.gson = gson;
     }
-    public void delete(Long myClassId) {
-        List<Lighting> myClassList= new ArrayList<>();
+
+    public List<Lighting> loadData() {
+        var list = new ArrayList<Lighting>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            Gson gson = new Gson();
-            myClassList = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {}.getType());
+            list = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {
+            }.getType());
             bufferedReader.close();
             System.out.println("Lighting objects have been read from " + fileName + " file.");
+            list.sort(idComparator);
+            return list;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Comparator<Lighting> idComparator = new Comparator<Lighting>() {
-            @Override
-            public int compare(Lighting o1, Lighting o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        };
-        myClassList.sort(idComparator);
-        myClassList.remove(Integer.parseInt(myClassId.toString())-1);
+        return null;
+    }
+
+
+    public void writeData(List<Lighting> lightings) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
-            Gson gson = new Gson();
-            gson.toJson(myClassList, fileWriter);
-            fileWriter.close();
-            System.out.println("Lighting object with id=" + myClassId + " has been removed from " + fileName + " file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void save(Lighting x, int plus){
-        List<Lighting> myClassList= new ArrayList<>();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            Gson gson = new Gson();
-            myClassList = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {}.getType());
-            bufferedReader.close();
-            System.out.println("Lighting objects have been read from " + fileName + " file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Comparator<Lighting> idComparator = new Comparator<Lighting>() {
-            @Override
-            public int compare(Lighting o1, Lighting o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        };
-        myClassList.sort(idComparator);
-        if(plus==1){
-            x.setId(Long.valueOf(myClassList.size() + plus));
-        }
-        myClassList.add(x);
-        try {
-            FileWriter fileWriter = new FileWriter(fileName);
-            Gson gson = new Gson();
-            gson.toJson(myClassList, fileWriter);
+            gson.toJson(lightings, fileWriter);
             fileWriter.close();
             System.out.println("Lighting objects have been saved to " + fileName + " file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public List<Lighting> findAll(){
-        List<Lighting> myClassList = new ArrayList<>();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            Gson gson = new Gson();
-            myClassList = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {}.getType());
-            bufferedReader.close();
-            System.out.println("Lighting objects have been read from " + fileName + " file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Comparator<Lighting> idComparator = new Comparator<Lighting>() {
-            @Override
-            public int compare(Lighting o1, Lighting o2) {
-                return o1.getId().compareTo(o2.getId());
+
+    public Lighting getByID(Long myClassId) {
+        List<Lighting> myClassList = loadData();
+        int classId = -1;
+        for (int i = 0; i < myClassList.size(); i++) {
+            if (myClassList.get(i).getId().equals(myClassId)) {
+                classId = i;
+                break;
             }
-        };
-        myClassList.sort(idComparator);
+        }
+        return myClassList.get(classId);
+    }
+
+    public void delete(Long myClassId) {
+        List<Lighting> myClassList = loadData();
+        myClassList.remove(getByID(myClassId).getId());
+        writeData(myClassList);
+    }
+
+    public void save(Lighting x, int plus) {
+        List<Lighting> myClassList = loadData();
+        if (plus == 1) {
+            if (myClassList.isEmpty()) {
+                x.setId(Long.valueOf(1));
+            } else {
+                x.setId(Long.valueOf(myClassList.get(myClassList.size()-1).getId() + 1));
+            }
+        }
+        myClassList.add(x);
+        writeData(myClassList);
+    }
+
+    public List<Lighting> findAll() {
+        List<Lighting> myClassList = loadData();
         return myClassList;
     }
 }

@@ -52,7 +52,7 @@ public class LightingController {
         return "test";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id")String id){
         lightingService.deleteLighting(id);
         return "redirect:/";

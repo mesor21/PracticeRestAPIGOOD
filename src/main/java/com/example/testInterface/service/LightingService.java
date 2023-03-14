@@ -100,6 +100,6 @@ public class LightingService implements ILightingService {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
         jsonRepo.delete(lighting.getId());
         lighting.setStatus(status);
-        jsonRepo.save(lighting, 1);
+        jsonRepo.save(lighting, 0);
     }
 }

@@ -218,9 +218,12 @@ input{
                             <td colspan="7">
                                 <div class="tableFooter">
                                     <a th:href="@{/delete/{id}(id=${lighting.getId})}">
-                                        <button class="btn1">Удалить</button>
+                                        <button class="btn1" type="button">Удалить</button>
                                     </a>
-                                    <button class="btn1" type="submit"> Подтвердить пользователя</button>
+                                    <a th:href="'/' + ${lighting.getId}">
+                                        <button class="btn1" type="submit"> Подтвердить пользователя
+                                        </button></a>
+
                                 </div>
                             </td>
                         </tr>
