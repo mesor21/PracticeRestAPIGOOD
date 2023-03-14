@@ -36,12 +36,12 @@
                 <td th:text="${lighting.getLux}"></td>
                 <td th:text="${lighting.getUptime_days}"></td>
                 <td th:text="${lighting.getStatus}"></td>
-                <td><a th:href="@{/{id}(id=${lighting.getId})}"
+                <td><a th:href="@{/edit/{id}(id=${lighting.getId})}"
                        class="btn3">Редактировать</a></td>
             </tr>
         </table>
     </form>
-    <form th:action="@{/}" method="post">
+    <form th:action="@{/create}" method="post">
         <button class="btn1 button" type="submit" method="post" >Добавить тему</button>
     </form>
 </div>
