@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class LightingRepository implements ILightingRepository {
@@ -93,11 +94,17 @@ public class LightingRepository implements ILightingRepository {
 
     public Lighting update(Lighting lighting) {
         List<Lighting> myClassList = loadData();
+        var id = Integer.parseInt(myClassList.stream()
+                .filter(x -> x.getId()==Long.parseLong(lighting.getId().toString()))
+                .findFirst().get().getId().toString())-1;
         if (!myClassList.isEmpty() && lighting != null) {
-            var id =Integer.parseInt((myClassList.get(Integer.parseInt(lighting.getId().toString())).getId()).toString())-1;
-            myClassList.set(id, lighting);
+            myClassList.set(
+                    id,
+                    lighting);
+
         }
         writeData(myClassList);
-        return myClassList.get(Integer.parseInt(lighting.getId().toString()));
+        myClassList = loadData();
+        return myClassList.stream().filter(x->(x.getId())==lighting.getId()).toList().get(0);
     }
 }
