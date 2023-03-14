@@ -52,19 +52,31 @@ strong{
 .vihod__img{
     width: 80%;
 }
+
+.tableFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .btn1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+
     font-family: 'Inter', sans-serif;
     text-align: center;
-    height: 30px;
+    max-height: 30px;
     color: white;
     background-color: #363636;
     border-radius: 5px;
     border-color: #fff;
     position: relative;
-    justify-content: center;
-    margin-top: 2%;
-    left:40%;
-    right: 60%;
+
+
 }
 .btn2{
     font-size: 20px;
@@ -153,6 +165,16 @@ input{
     border: none;
     width: 95%;
 }
+
+
+
+
+
+
+
+
+
+
 </style>
 
 <header></header>
@@ -162,42 +184,53 @@ input{
         <p>Параметры сотрудника</p>
         <table>
             <thead>
+            <th>ID</th>
+            <th>R(0-255)</th>
+            <th>G(0-255)</th>
+            <th>B(0-255)</th>
+            <th>Мощность</th>
+            <th>Освещённость</th>
+            <th>Срок службы(дней)</th>
             </thead>
-            <tr th:each="lighting: ${list}">
-                <td th:text="${lighting.getId}"></td>
-                <td th:text="${lighting.getCollor_red}"></td>
-                <td th:text="${lighting.getCollor_green}"></td>
-                <td th:text="${lighting.getCollor_blue}"></td>
-                <td th:text="${lighting.getPower_Wat}"></td>
-                <td th:text="${lighting.getLux}"></td>
-                <td th:text="${lighting.getUptime_days}"></td>
-                <td><a th:href="@{/delete/{id}(id=${lighting.getId})}"
-                       class="btn3">Удалить</a></td>
-                <form th:action="'/' + ${lighting.getId}" method="post" >
+            <tbody>
+            <tr th:each="lighting: ${lighting}">
+                <form th:action="'/' + ${lighting.getId}" method="post">
+                    <table style="{width: 100%}">
+                        <tr>
+                            <td th:text=${lighting.getId}></td>
+                            <td><input th:value="${lighting.getCollor_red}" type="text" id="collor_red"
+                                       name="collor_red">
+                            </td>
+                            <td><input th:value="${lighting.getCollor_green}" type="text" id="collor_green"
+                                       name="collor_green">
+                            </td>
+                            <td><input th:value="${lighting.getCollor_blue}" type="text" id="collor_blue"
+                                       name="collor_blue">
+                            </td>
+                            <td><input th:value="${lighting.getPower_Wat}" type="text" id="power_Wat" name="power_Wat">
+                            </td>
+                            <td><input th:value="${lighting.getLux}" type="text" id="lux" name="lux"></td>
+                            <td><input th:value="${lighting.getUptime_days}" type="text" id="uptime_days"
+                                       name="uptime_days">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7">
+                                <div class="tableFooter">
+                                    <a th:href="@{/delete/{id}(id=${lighting.getId})}">
+                                        <button class="btn1">Удалить</button>
+                                    </a>
+                                    <button class="btn1" type="submit"> Подтвердить пользователя</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </tr>
-            <thead>
-                <th>ID</th>
-                <th>R(0-255)</th>
-                <th>G(0-255)</th>
-                <th>B(0-255)</th>
-                <th>Мощность</th>
-                <th>Освещённость</th>
-                <th>Срок службы(дней)</th>
-            </thead>
-            <tr>
-                <td></td>
-                <td><input type="text" id="collor_red" name="collor_red"></td>
-                <td><input type="text" id="collor_green" name="collor_green"></td>
-                <td><input type="text" id="collor_blue" name="collor_blue"></td>
-                <td><input type="text" id="power_Wat" name="power_Wat"></td>
-                <td><input type="text" id="lux" name="lux"></td>
-                <td><input type="text" id="uptime_days" name="uptime_days"></td>
-            </tr>
-            <thead>
-            </thead>
+            </tbody>
         </table>
-            <button class="btn1" type="submit"> Подтвердить пользователя</button>
-        </form>
+
+
     </div>
 </div>
 </body>

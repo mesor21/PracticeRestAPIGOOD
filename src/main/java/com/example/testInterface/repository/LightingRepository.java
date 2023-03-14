@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
 @Repository
 public class LightingRepository implements ILightingRepository{
-    private final static String fileName ="/home/lol/university/23.02-23.07/Pract/practica/src/main/resources/file.json";
+    private final static String fileName ="C:\\Users\\prodg\\IdeaProjects\\PracticeRestAPIGOOD\\src\\main\\resources\\DataContext.json";
 
     public Lighting getByID(Long myClassId) {
         List<Lighting> myClassList= new ArrayList<>();

@@ -2,6 +2,10 @@ package com.example.testInterface.controller;
 
 import com.example.testInterface.entity.Lighting;
 import com.example.testInterface.service.ILightingService;
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +16,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class LightingController {
+<<<<<<< HEAD
     ILightingService lightingService;
+=======
+
+    @Autowired
+    ILightingService lightingService;
+
+    public LightingController(ILightingService lightingService) {
+        this.lightingService = lightingService;
+    }
+
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
     @GetMapping("")
     public String test(Model model){
         model.addAttribute("list",lightingService.getList());
@@ -22,7 +37,7 @@ public class LightingController {
     public String getLighting(@PathVariable("id")String id, Model model){
         List<Lighting> arr = new ArrayList<>();
         arr.add(lightingService.getLightingID(id));
-        model.addAttribute("list",arr);
+        model.addAttribute("lighting",arr);
         return "editLighting";
     }
     @PostMapping("")
@@ -49,17 +64,29 @@ public class LightingController {
         lightingService.deleteLighting(id);
         return "redirect:/";
     }
+<<<<<<< HEAD
     @GetMapping("info/get")
+=======
+    @GetMapping("/info/get")
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
     public String get4Buisnes(Model model){
         model.addAttribute("list",lightingService.getList());
         return "list4Buisnes";
     }
+<<<<<<< HEAD
     @GetMapping("info/turnOn/{id}")
+=======
+    @GetMapping("/info/turnOn/{id}")
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
     public String turnOn(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id,true);
         return "redirect:/info/get";
     }
+<<<<<<< HEAD
     @GetMapping("info/turnOff/{id}")
+=======
+    @GetMapping("/info/turnOff/{id}")
+>>>>>>> e3a72249173588fc9bc707e9a04ffed988580031
     public String turnOff(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id, false);
         return "redirect:/info/get";
