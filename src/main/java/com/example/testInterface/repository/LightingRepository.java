@@ -29,7 +29,7 @@ public class LightingRepository implements ILightingRepository {
         this.gson = gson;
     }
 
-    public List<Lighting> loadData() {
+    private List<Lighting> loadData() {
         var list = new ArrayList<Lighting>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -46,7 +46,7 @@ public class LightingRepository implements ILightingRepository {
     }
 
 
-    public void writeData(List<Lighting> lightings) {
+    private void writeData(List<Lighting> lightings) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             gson.toJson(lightings, fileWriter);
@@ -71,18 +71,16 @@ public class LightingRepository implements ILightingRepository {
 
     public void delete(Long myClassId) {
         List<Lighting> myClassList = loadData();
-        myClassList.remove(getByID(myClassId).getId());
+        myClassList.removeIf(x -> myClassId - 1 > 0 && x.getId() == myClassId);
         writeData(myClassList);
     }
 
-    public void save(Lighting x, int plus) {
+    public void save(Lighting x) {
         List<Lighting> myClassList = loadData();
-        if (plus == 1) {
-            if (myClassList.isEmpty()) {
-                x.setId(Long.valueOf(1));
-            } else {
-                x.setId(Long.valueOf(myClassList.get(myClassList.size()-1).getId() + 1));
-            }
+        if (myClassList.isEmpty()) {
+            x.setId(Long.valueOf(1));
+        } else {
+            x.setId(Long.valueOf(myClassList.get(myClassList.size() - 1).getId() + 1));
         }
         myClassList.add(x);
         writeData(myClassList);
@@ -91,5 +89,15 @@ public class LightingRepository implements ILightingRepository {
     public List<Lighting> findAll() {
         List<Lighting> myClassList = loadData();
         return myClassList;
+    }
+
+    public Lighting update(Lighting lighting) {
+        List<Lighting> myClassList = loadData();
+        if (!myClassList.isEmpty() && lighting != null) {
+            var id =Integer.parseInt((myClassList.get(Integer.parseInt(lighting.getId().toString())).getId()).toString())-1;
+            myClassList.set(id, lighting);
+        }
+        writeData(myClassList);
+        return myClassList.get(Integer.parseInt(lighting.getId().toString()));
     }
 }

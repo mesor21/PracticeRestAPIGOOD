@@ -62,14 +62,10 @@ public class LightingController {
         model.addAttribute("list",lightingService.getList());
         return "list4Buisnes";
     }
-    @GetMapping("/info/turnOn/{id}")
-    public String turnOn(@PathVariable("id")String id, Model model){
-        lightingService.setLightingStatus(id,true);
-        return "redirect:/info/get";
-    }
-    @GetMapping("/info/turnOff/{id}")
-    public String turnOff(@PathVariable("id")String id, Model model){
-        lightingService.setLightingStatus(id, false);
+
+    @GetMapping("/info/switchLight/{id}")
+    public String switchLight(@PathVariable("id")String id){
+        lightingService.switchLight(id);
         return "redirect:/info/get";
     }
 }

@@ -23,7 +23,7 @@ public class LightingService implements ILightingService {
 
     public void saveNewLighting() {
         Lighting newL = new Lighting();
-        jsonRepo.save(newL, 1);
+        jsonRepo.save(newL);
         System.out.println("Create new empty object");
     }
 
@@ -35,6 +35,7 @@ public class LightingService implements ILightingService {
         return jsonRepo.getByID(Long.parseLong(id));
     }
 
+    //middleware
     public boolean saveEdit(String id, String red, String green, String blue, String power, String lux, String uptime) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
 
@@ -92,14 +93,13 @@ public class LightingService implements ILightingService {
             lighting.setUptime_days(Integer.parseInt(uptime));
         }
         jsonRepo.delete(Long.parseLong(id));
-        jsonRepo.save(lighting, 0);
+        jsonRepo.save(lighting);
         return false;
     }
 
-    public void setLightingStatus(String id, boolean status) {
+    public void switchLight(String id) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
-        jsonRepo.delete(lighting.getId());
-        lighting.setStatus(status);
-        jsonRepo.save(lighting, 1);
+        lighting.setStatus(!lighting.getStatus());
+        jsonRepo.update(lighting);
     }
 }

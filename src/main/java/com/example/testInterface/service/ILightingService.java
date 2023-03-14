@@ -10,5 +10,5 @@ public interface ILightingService {
     void deleteLighting(String id);
     Lighting getLightingID(String id);
     boolean saveEdit(String id, String red, String green, String blue,String power, String lux, String uptime);
-    void setLightingStatus(String id,boolean status);
+    void switchLight(String id);
 }

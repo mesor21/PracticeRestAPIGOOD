@@ -1,0 +1,144 @@
+body{
+    margin: auto;
+    font-size: 30px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bolder;
+    background-color: #1E1E1E;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.header{
+    font-size: 29px;
+    height: 60px;
+    background-color:#67B6C0;
+    color:#363636;
+    width: 100%;
+    padding-top: 1%;
+}
+h1{
+    font-size:30px;
+    position:relative;
+    text-align: center;
+    bottom: 20px;
+}
+.header__inner{
+    margin-left: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+}
+strong{
+    margin-right: 10%;
+}
+.vihod__img{
+    width: 80%;
+}
+.btn1{
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    height: 30px;
+    color: white;
+    background-color: #363636;
+    border-radius: 5px;
+    border-color: #fff;
+    position: relative;
+    justify-content: center;
+    margin-top: 2%;
+    left:40%;
+    right: 60%;
+}
+.btn2{
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    background: #FF0000;
+    float: right;
+    margin-top: 6%;
+}
+.btn3{
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    height: 30px;
+    color: white;
+    background-color: #363636;
+    border-radius: 5px;
+    border-color: #fff;
+    margin: 0 auto;
+}
+.confirmation{
+    color:#FFFF;
+    background-color: #363636;
+    height: 30px;
+    border: none;
+    border-spacing: 0 10px;
+}
+.blog{
+    color: #fff;
+}
+.role{
+    margin-left: 3%;
+    font-size: 16px;
+}
+select{
+    color:#FFFFFF;
+    background-color: #5B5B5B;
+    display: flex;
+    width: 15%;
+    font-size: 14px;
+}
+td{
+    text-align: left;
+    padding-left: 10px;
+    color:#FFFFFF;
+    font-size: 12px;
+    background-color: #363636;
+    border-spacing: 0 10px;
+    height: 30px;
+}
+thead {
+    text-align: left;
+    padding-left: 10px;
+    color:#FFFFFF;
+    font-size: 12px;
+    background-color: #404040;
+    border-spacing: 0 10px;
+    height: 30px;
+ }
+th {
+    text-align: left;
+    padding-left: 10px;
+    color:#FFFFFF;
+    font-size: 12px;
+    background-color: #404040;
+    border-spacing: 0 10px;
+    height: 30px;
+ }
+table{
+    width: 90%;
+    position: relative;
+    margin: 0 auto;
+    background-color: #565656;
+    border-radius: 5px;
+}
+input{
+    text-align: left;
+    padding-left: 10px;
+    color:#FFFFFF;
+    font-size: 12px;
+    background-color: #363636;
+    border-spacing: 0 10px;
+    height: 30px;
+    border: none;
+    width: 95%;
+}
