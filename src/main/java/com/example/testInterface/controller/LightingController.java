@@ -1,8 +1,7 @@
 package com.example.testInterface.controller;
 
 import com.example.testInterface.entity.Lighting;
-import com.example.testInterface.service.ILightingController;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.testInterface.service.ILightingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class LightingController {
-    @Autowired
-    ILightingController lightingService;
+    ILightingService lightingService;
     @GetMapping("")
     public String test(Model model){
         model.addAttribute("list",lightingService.getList());
@@ -46,22 +44,22 @@ public class LightingController {
         return "test";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("info/delete/{id}")
     public String delete(@PathVariable("id")String id){
         lightingService.deleteLighting(id);
         return "redirect:/";
     }
-    @GetMapping("get")
+    @GetMapping("info/get")
     public String get4Buisnes(Model model){
         model.addAttribute("list",lightingService.getList());
         return "list4Buisnes";
     }
-    @GetMapping("turnOn/{id}")
+    @GetMapping("info/turnOn/{id}")
     public String turnOn(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id,true);
         return "redirect:/info/get";
     }
-    @GetMapping("turnOff/{id}")
+    @GetMapping("info/turnOff/{id}")
     public String turnOff(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id, false);
         return "redirect:/info/get";

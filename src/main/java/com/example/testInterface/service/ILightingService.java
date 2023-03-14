@@ -4,7 +4,7 @@ import com.example.testInterface.entity.Lighting;
 
 import java.util.List;
 
-public interface ILightingController {
+public interface ILightingService {
     List<Lighting> getList();
     void saveNewLighting();
     void deleteLighting(String id);

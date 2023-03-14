@@ -8,14 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class LightingService implements ILightingController {
-    @Autowired
+public class LightingService implements ILightingService {
     ILightingRepository jsonRepo;
-
-    public LightingService(ILightingRepository iLightingRepository) {
-        System.out.println("Constructor Service");
-        this.jsonRepo=iLightingRepository;
-    }
 
     public List<Lighting> getList(){
         return jsonRepo.findAll();
