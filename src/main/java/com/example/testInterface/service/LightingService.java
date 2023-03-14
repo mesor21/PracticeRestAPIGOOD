@@ -2,104 +2,103 @@ package com.example.testInterface.service;
 
 import com.example.testInterface.entity.Lighting;
 import com.example.testInterface.repository.ILightingRepository;
-import com.example.testInterface.repository.LightingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class LightingService implements ILightingController {
+public class LightingService implements ILightingService {
+
     @Autowired
     ILightingRepository jsonRepo;
 
     public LightingService(ILightingRepository iLightingRepository) {
-        System.out.println("Constructor Service");
-        this.jsonRepo=iLightingRepository;
+        this.jsonRepo = iLightingRepository;
     }
 
-    public List<Lighting> getList(){
+    public List<Lighting> getList() {
         return jsonRepo.findAll();
     }
-    public void saveNewLighting(){
-        Lighting newL =new Lighting();
-        jsonRepo.save(newL,1);
+
+    public void saveNewLighting() {
+        Lighting newL = new Lighting();
+        jsonRepo.save(newL, 1);
         System.out.println("Create new empty object");
     }
-    public void deleteLighting(String id){
+
+    public void deleteLighting(String id) {
         jsonRepo.delete(Long.parseLong(id));
     }
-    public Lighting getLightingID(String id){
+
+    public Lighting getLightingID(String id) {
         return jsonRepo.getByID(Long.parseLong(id));
     }
-    public boolean saveEdit(String id, String red, String green, String blue,String power, String lux, String uptime){
+
+    public boolean saveEdit(String id, String red, String green, String blue, String power, String lux, String uptime) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
         jsonRepo.delete(Long.parseLong(id));
-        if(red.equals("")){
+        if (red.equals("")) {
             lighting.setCollor_red(lighting.getCollor_red());
-        }
-        else{
-            if(Integer.parseInt(red)>255 | Integer.parseInt(red)<0){
+        } else {
+            if (Integer.parseInt(red) > 255 | Integer.parseInt(red) < 0) {
                 return true;
             }
             lighting.setCollor_red(Integer.parseInt(red));
         }
 
-        if(green.equals("")){
+        if (green.equals("")) {
             lighting.setCollor_green(lighting.getCollor_green());
-        }
-        else{
-            if(Integer.parseInt(green)>255 | Integer.parseInt(green)<0){
+        } else {
+            if (Integer.parseInt(green) > 255 | Integer.parseInt(green) < 0) {
                 return true;
             }
             lighting.setCollor_green(Integer.parseInt(green));
         }
 
-        if(blue.equals("")){
+        if (blue.equals("")) {
             lighting.setCollor_blue(lighting.getCollor_blue());
-        }
-        else{
-            if(Integer.parseInt(blue)>255 | Integer.parseInt(blue)<0){
+        } else {
+            if (Integer.parseInt(blue) > 255 | Integer.parseInt(blue) < 0) {
                 return true;
             }
             lighting.setCollor_blue(Integer.parseInt(blue));
         }
 
-        if(power.equals("")){
+        if (power.equals("")) {
             lighting.setPower_Wat(lighting.getPower_Wat());
-        }
-        else{
-            if(Integer.parseInt(power)<0){
+        } else {
+            if (Integer.parseInt(power) < 0) {
                 return true;
             }
             lighting.setPower_Wat(Integer.parseInt(power));
         }
 
-        if(lux.equals("")){
+        if (lux.equals("")) {
             lighting.setLux(lighting.getLux());
-        }
-        else{
-            if(Integer.parseInt(lux)<0){
+        } else {
+            if (Integer.parseInt(lux) < 0) {
                 return true;
             }
             lighting.setLux(Integer.parseInt(lux));
         }
 
-        if(uptime.equals("")){
+        if (uptime.equals("")) {
             lighting.setUptime_days(lighting.getUptime_days());
-        }
-        else{
-            if(Integer.parseInt(uptime)<0){
+        } else {
+            if (Integer.parseInt(uptime) < 0) {
                 return true;
             }
             lighting.setUptime_days(Integer.parseInt(uptime));
         }
-        jsonRepo.save(lighting,0);
+        jsonRepo.save(lighting, 0);
         return false;
     }
-    public void setLightingStatus(String id,boolean status){
+
+    public void setLightingStatus(String id, boolean status) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
         jsonRepo.delete(lighting.getId());
         lighting.setStatus(status);
-        jsonRepo.save(lighting,1);
+        jsonRepo.save(lighting, 1);
     }
 }

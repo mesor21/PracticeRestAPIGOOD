@@ -3,6 +3,7 @@ package com.example.testInterface.repository;
 import com.example.testInterface.entity.Lighting;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+@Repository
 public class LightingRepository implements ILightingRepository{
     private final static String fileName ="/home/lol/university/23.02-23.07/Pract/practica/src/main/resources/file.json";
 

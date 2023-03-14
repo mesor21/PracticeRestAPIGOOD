@@ -1,7 +1,7 @@
 package com.example.testInterface.controller;
 
 import com.example.testInterface.entity.Lighting;
-import com.example.testInterface.service.ILightingController;
+import com.example.testInterface.service.ILightingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +13,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class LightingController {
+
     @Autowired
-    ILightingController lightingService;
+    ILightingService lightingService;
+
+    public LightingController(ILightingService lightingService) {
+        this.lightingService = lightingService;
+    }
+
     @GetMapping("")
     public String test(Model model){
         model.addAttribute("list",lightingService.getList());
