@@ -3,6 +3,7 @@ package com.example.testInterface.repository;
 import com.example.testInterface.entity.Lighting;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
@@ -29,7 +30,7 @@ public class LightingRepository implements ILightingRepository {
     public LightingRepository(Gson gson) {
         this.gson = gson;
     }
-
+    @Async
     private List<Lighting> loadData() {
         var list = new ArrayList<Lighting>();
         try {
@@ -46,7 +47,7 @@ public class LightingRepository implements ILightingRepository {
         return null;
     }
 
-
+    @Async
     private void writeData(List<Lighting> lightings) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
@@ -57,19 +58,19 @@ public class LightingRepository implements ILightingRepository {
             e.printStackTrace();
         }
     }
-
+    @Async
     public Lighting getByID(Long id) {
         List<Lighting> lightings = loadData();
-        var buff = lightings.stream().filter(x->x.getId()==Integer.parseInt(id.toString())).findFirst().get();
+        var buff = lightings.stream().filter(x -> x.getId() == Integer.parseInt(id.toString())).findFirst().get();
         return buff;
     }
-
+    @Async
     public void delete(Long myClassId) {
         List<Lighting> myClassList = loadData();
         myClassList.removeIf(x -> myClassId - 1 >= 0 && x.getId() == myClassId);
         writeData(myClassList);
     }
-
+    @Async
     public void save(Lighting x) {
         List<Lighting> myClassList = loadData();
         if (myClassList.isEmpty()) {
@@ -80,21 +81,28 @@ public class LightingRepository implements ILightingRepository {
         myClassList.add(x);
         writeData(myClassList);
     }
-
+    @Async
     public List<Lighting> findAll() {
         List<Lighting> myClassList = loadData();
         return myClassList;
     }
-
+    @Async
     public Lighting update(Lighting lighting) {
         List<Lighting> lightings = loadData();
-        var id = lightings.indexOf(getByID(lighting.getId()));
         if (!lightings.isEmpty() && lighting != null) {
+            var id = 0;
+            for (var item : lightings) {
+                if (item.getId() == lighting.getId()) {
+                    break;
+                }
+                id = id + 1;
+            }
             lightings.set(
                     id,
-                    lighting);}
+                    lighting);
+        }
         writeData(lightings);
         lightings = loadData();
-        return lightings.stream().filter(x->(x.getId())==lighting.getId()).toList().get(0);
+        return lightings.stream().filter(x -> (x.getId()) == lighting.getId()).toList().get(0);
     }
 }

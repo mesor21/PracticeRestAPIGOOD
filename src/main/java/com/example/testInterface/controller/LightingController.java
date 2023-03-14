@@ -3,6 +3,7 @@ package com.example.testInterface.controller;
 import com.example.testInterface.entity.Lighting;
 import com.example.testInterface.service.ILightingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class LightingController {
     public LightingController(ILightingService lightingService) {
         this.lightingService = lightingService;
     }
-
+    @Async
     @GetMapping("")
     public String test(Model model) {
         model.addAttribute("list", lightingService.getList());
@@ -28,13 +29,13 @@ public class LightingController {
     }
 
 
-
+    @Async
     @PostMapping("/create")
     public String createNewLighting() {
         lightingService.saveNewLighting();
         System.out.println("Create new object");
         return "redirect:/";
-    }
+    }@Async
     @GetMapping("/edit/{id}")
     public String getLighting(@PathVariable("id") String id, Model model) {
         List<Lighting> arr = new ArrayList<>();
@@ -42,7 +43,7 @@ public class LightingController {
         model.addAttribute("lighting", arr);
         return "editLighting";
     }
-
+    @Async
     @PostMapping("/edit/{id}")
     public String editLighting(@PathVariable("id") String id,
                                @RequestParam(value = "collor_red", required = false) String collor_red,
@@ -67,24 +68,24 @@ public class LightingController {
         return "redirect:/";
 
     }
-
+    @Async
     @GetMapping("error")
     public String error() {
         return "test";
     }
-
+    @Async
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) {
         lightingService.deleteLighting(id);
         return "redirect:/";
     }
-
+    @Async
     @GetMapping("/info/get")
     public String get4Buisnes(Model model) {
         model.addAttribute("list", lightingService.getList());
         return "list4Buisnes";
     }
-
+    @Async
     @GetMapping("/info/switchLight/{id}")
     public String switchLight(@PathVariable("id") String id) {
         lightingService.switchLight(id);
