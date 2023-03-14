@@ -57,17 +57,17 @@ public class LightingController {
         lightingService.deleteLighting(id);
         return "redirect:/";
     }
-    @GetMapping("get")
+    @GetMapping("/info/get")
     public String get4Buisnes(Model model){
         model.addAttribute("list",lightingService.getList());
         return "list4Buisnes";
     }
-    @GetMapping("turnOn/{id}")
+    @GetMapping("/info/turnOn/{id}")
     public String turnOn(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id,true);
         return "redirect:/info/get";
     }
-    @GetMapping("turnOff/{id}")
+    @GetMapping("/info/turnOff/{id}")
     public String turnOff(@PathVariable("id")String id, Model model){
         lightingService.setLightingStatus(id, false);
         return "redirect:/info/get";
