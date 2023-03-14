@@ -20,14 +20,14 @@ public class Lighting {
     }
 
     public Lighting() {
-        //this.id=Long.parseLong("-1");
-        //this.collor_red=0;
-        //this.collor_blue=0;
-        //this.collor_green=0;
-        //this.power_Wat=0;
-        //this.lux=0;
-        //this.uptime_days=0;
-        //this.status=false;
+        this.id=Long.parseLong("-1");
+        this.collor_red=0;
+        this.collor_blue=0;
+        this.collor_green=0;
+        this.power_Wat=0;
+        this.lux=0;
+        this.uptime_days=0;
+        this.status=false;
     }
 
     public Lighting(long id, int collor_red, int collor_blue, int collor_green, double power_Wat, int lux, int uptime_days, boolean status) {
