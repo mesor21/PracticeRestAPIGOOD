@@ -37,7 +37,7 @@ public class LightingService implements ILightingService {
 
     public boolean saveEdit(String id, String red, String green, String blue, String power, String lux, String uptime) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));
-        jsonRepo.delete(Long.parseLong(id));
+
         if (red.equals("")) {
             lighting.setCollor_red(lighting.getCollor_red());
         } else {
@@ -68,10 +68,10 @@ public class LightingService implements ILightingService {
         if (power.equals("")) {
             lighting.setPower_Wat(lighting.getPower_Wat());
         } else {
-            if (Integer.parseInt(power) < 0) {
+            if (Double.parseDouble(power) < 0) {
                 return true;
             }
-            lighting.setPower_Wat(Integer.parseInt(power));
+            lighting.setPower_Wat(Double.parseDouble(power));
         }
 
         if (lux.equals("")) {
@@ -91,6 +91,7 @@ public class LightingService implements ILightingService {
             }
             lighting.setUptime_days(Integer.parseInt(uptime));
         }
+        jsonRepo.delete(Long.parseLong(id));
         jsonRepo.save(lighting, 0);
         return false;
     }

@@ -30,7 +30,7 @@ public class LightingController {
     public String getLighting(@PathVariable("id")String id, Model model){
         List<Lighting> arr = new ArrayList<>();
         arr.add(lightingService.getLightingID(id));
-        model.addAttribute("list",arr);
+        model.addAttribute("lighting",arr);
         return "editLighting";
     }
     @PostMapping("")
