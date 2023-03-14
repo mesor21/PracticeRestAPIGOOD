@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr th:each="lighting: ${lighting}">
-                <form th:action="'/edit/{id}(id=${lighting.getId})}'" method="post">
+                <form th:action="'/edit/' + ${lighting.getId}" method="post">
                     <table style="{width: 100%}">
                         <tr>
                             <td th:text=${lighting.getId}></td>
@@ -54,9 +54,10 @@
                                     <a th:href="@{/delete/{id}(id=${lighting.getId})}">
                                         <button class="btn1" type="button">Удалить</button>
                                     </a>
-                                    <a th:href="'/edit/{id}(id=${lighting.getId})}">
-                                        <button class="btn1" type="submit"> Подтвердить пользователя</button>
-                                    </a>
+                                    <a th:href="'/edit/' + ${lighting.getId}">
+                                        <button class="btn1" type="submit"> Подтвердить пользователя
+                                        </button></a>
+
                                 </div>
                             </td>
                         </tr>
