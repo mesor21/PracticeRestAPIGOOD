@@ -5,6 +5,12 @@ body{
     font-weight: bolder;
     background-color: #1E1E1E;
 }
+a{
+    color: ##fff;
+}
+a::after{
+    color: #000;
+}
 
 .container {
     width: 100%;

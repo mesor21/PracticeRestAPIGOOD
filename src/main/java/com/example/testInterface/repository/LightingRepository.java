@@ -93,18 +93,16 @@ public class LightingRepository implements ILightingRepository {
     }
 
     public Lighting update(Lighting lighting) {
-        List<Lighting> myClassList = loadData();
-        var id = Integer.parseInt(myClassList.stream()
+        List<Lighting> lightings = loadData();
+        var id = Integer.parseInt(lightings.stream()
                 .filter(x -> x.getId()==Long.parseLong(lighting.getId().toString()))
                 .findFirst().get().getId().toString())-1;
-        if (!myClassList.isEmpty() && lighting != null) {
-            myClassList.set(
+        if (!lightings.isEmpty() && lighting != null) {
+            lightings.set(
                     id,
-                    lighting);
-
-        }
-        writeData(myClassList);
-        myClassList = loadData();
-        return myClassList.stream().filter(x->(x.getId())==lighting.getId()).toList().get(0);
+                    lighting);}
+        writeData(lightings);
+        lightings = loadData();
+        return lightings.stream().filter(x->(x.getId())==lighting.getId()).toList().get(0);
     }
 }

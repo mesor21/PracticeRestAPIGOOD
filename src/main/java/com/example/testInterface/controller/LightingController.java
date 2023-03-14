@@ -33,19 +33,38 @@ public class LightingController {
         model.addAttribute("lighting",arr);
         return "editLighting";
     }
-    @PostMapping("")
+    @PostMapping("/create")
     public String createNewLighting(){
         lightingService.saveNewLighting();
         System.out.println("Create new object");
         return "redirect:/";
     }
-    @PostMapping("{id}")
-    public String edit_object(@PathVariable("id")String id, @RequestParam(value = "collor_red",required = false)String collor_red, @RequestParam(value = "collor_blue",required = false)String collor_blue, @RequestParam(value = "collor_green",required = false)String collor_green, @RequestParam(value = "power_Wat",required = false)String power_Wat, @RequestParam(value = "lux",required = false)String lux , @RequestParam(value = "uptime_days",required = false)String uptime_days){
-        if(lightingService.saveEdit(id,collor_red,collor_green,collor_blue,power_Wat,lux,uptime_days)){
-            return "redirect:/ERROR";
+    @PostMapping("/edit/{id}")
+    public String editLighting(@PathVariable("id")String id,
+                               @RequestParam(value = "collor_red",required = false)String collor_red,
+                               @RequestParam(value = "collor_blue",required = false)String collor_blue,
+                               @RequestParam(value = "collor_green",required = false)String collor_green,
+                               @RequestParam(value = "power_Wat",required = false)String power_Wat,
+                               @RequestParam(value = "lux",required = false)String lux ,
+                               @RequestParam(value = "uptime_days",required = false)String uptime_days ,
+                               @RequestParam(value = "status",required = false) String status)
+
+    {
+        Lighting lighting = new Lighting(
+                Long.parseLong(id),
+                Integer.parseInt(collor_red),
+                Integer.parseInt(collor_blue),
+                Integer.parseInt(collor_green),
+                Double.parseDouble(power_Wat),
+                Integer.parseInt(lux),
+                Integer.parseInt(uptime_days),
+                Boolean.getBoolean(status));
+        if (lighting!=null){
+            lightingService.update(lighting);
+            System.out.println("Save object controller");
+            return "redirect:/";
         }
-        System.out.println("Save object");
-        return "redirect:/";
+        return "redirect:/error";
     }
     @GetMapping("ERROR")
     public String error(){
