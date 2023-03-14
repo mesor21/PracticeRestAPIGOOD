@@ -58,21 +58,15 @@ public class LightingRepository implements ILightingRepository {
         }
     }
 
-    public Lighting getByID(Long myClassId) {
-        List<Lighting> myClassList = loadData();
-        int classId = -1;
-        for (int i = 0; i < myClassList.size(); i++) {
-            if (myClassList.get(i).getId().equals(myClassId)) {
-                classId = i;
-                break;
-            }
-        }
-        return myClassList.get(classId);
+    public Lighting getByID(Long id) {
+        List<Lighting> lightings = loadData();
+        var buff = lightings.stream().filter(x->x.getId()==Integer.parseInt(id.toString())).findFirst().get();
+        return buff;
     }
 
     public void delete(Long myClassId) {
         List<Lighting> myClassList = loadData();
-        myClassList.removeIf(x -> myClassId - 1 > 0 && x.getId() == myClassId);
+        myClassList.removeIf(x -> myClassId - 1 >= 0 && x.getId() == myClassId);
         writeData(myClassList);
     }
 
@@ -94,9 +88,7 @@ public class LightingRepository implements ILightingRepository {
 
     public Lighting update(Lighting lighting) {
         List<Lighting> lightings = loadData();
-        var id = Integer.parseInt(lightings.stream()
-                .filter(x -> x.getId()==Long.parseLong(lighting.getId().toString()))
-                .findFirst().get().getId().toString())-1;
+        var id = lightings.indexOf(getByID(lighting.getId()));
         if (!lightings.isEmpty() && lighting != null) {
             lightings.set(
                     id,
