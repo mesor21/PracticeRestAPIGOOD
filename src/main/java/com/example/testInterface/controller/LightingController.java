@@ -23,7 +23,7 @@ public class LightingController {
     }
     @Async
     @GetMapping("")
-    public String test(Model model) {
+    public String mainPage(Model model) {
         model.addAttribute("list", lightingService.getList());
         return "mainPage";
     }
@@ -37,7 +37,7 @@ public class LightingController {
         return "redirect:/";
     }@Async
     @GetMapping("/edit/{id}")
-    public String getLighting(@PathVariable("id") String id, Model model) {
+    public String getLightingForEdit(@PathVariable("id") String id, Model model) {
         List<Lighting> arr = new ArrayList<>();
         arr.add(lightingService.getLightingID(id));
         model.addAttribute("lighting", arr);
