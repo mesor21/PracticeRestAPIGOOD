@@ -6,7 +6,7 @@ body{
     background-color: #1E1E1E;
 }
 a{
-    color: ##fff;
+    color: #fff;
 }
 a::after{
     color: #000;

@@ -17,7 +17,6 @@ public class LightingController {
 
     @Autowired
     ILightingService lightingService;
-
     public LightingController(ILightingService lightingService) {
         this.lightingService = lightingService;
     }
@@ -27,8 +26,6 @@ public class LightingController {
         model.addAttribute("list", lightingService.getList());
         return "mainPage";
     }
-
-
     @Async
     @PostMapping("/create")
     public String createNewLighting() {
@@ -71,7 +68,7 @@ public class LightingController {
     @Async
     @GetMapping("error")
     public String error() {
-        return "test";
+        return "error";
     }
     @Async
     @GetMapping("/delete/{id}")
@@ -90,5 +87,11 @@ public class LightingController {
     public String switchLight(@PathVariable("id") String id) {
         lightingService.switchLight(id);
         return "redirect:/info/get";
+    }
+    //TODO fix. Not working
+    @Async
+    @GetMapping("/api/main")
+    public List<Lighting> getAllList(){
+        return lightingService.getList();
     }
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Repository
 public class LightingRepository implements ILightingRepository {
-    private final static String fileName = "C:\\Users\\prodg\\IdeaProjects\\PracticeRestAPIGOOD\\src\\main\\resources\\DataContext.json";
+    private final static String fileName = "/home/lol/university/23.02-23.07/Pract/testInterface/src/main/resources/DataContext.json";
     private Gson gson;
 
     private Comparator<Lighting> idComparator = new Comparator<Lighting>() {
@@ -31,12 +31,11 @@ public class LightingRepository implements ILightingRepository {
         this.gson = gson;
     }
     @Async
-    private List<Lighting> loadData() {
+    private List<Lighting> loadDataFromFile() {
         var list = new ArrayList<Lighting>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            list = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {
-            }.getType());
+            list = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>(){}.getType());
             bufferedReader.close();
             System.out.println("Lighting objects have been read from " + fileName + " file.");
             list.sort(idComparator);
@@ -46,9 +45,8 @@ public class LightingRepository implements ILightingRepository {
         }
         return null;
     }
-
     @Async
-    private void writeData(List<Lighting> lightings) {
+    private void writeFileData(List<Lighting> lightings) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             gson.toJson(lightings, fileWriter);
@@ -60,35 +58,35 @@ public class LightingRepository implements ILightingRepository {
     }
     @Async
     public Lighting getByID(Long id) {
-        List<Lighting> lightings = loadData();
+        List<Lighting> lightings = loadDataFromFile();
         var buff = lightings.stream().filter(x -> x.getId() == Integer.parseInt(id.toString())).findFirst().get();
         return buff;
     }
     @Async
     public void delete(Long myClassId) {
-        List<Lighting> myClassList = loadData();
+        List<Lighting> myClassList = loadDataFromFile();
         myClassList.removeIf(x -> myClassId - 1 >= 0 && x.getId() == myClassId);
-        writeData(myClassList);
+        writeFileData(myClassList);
     }
     @Async
     public void save(Lighting x) {
-        List<Lighting> myClassList = loadData();
+        List<Lighting> myClassList = loadDataFromFile();
         if (myClassList.isEmpty()) {
             x.setId(Long.valueOf(1));
         } else {
             x.setId(Long.valueOf(myClassList.get(myClassList.size() - 1).getId() + 1));
         }
         myClassList.add(x);
-        writeData(myClassList);
+        writeFileData(myClassList);
     }
     @Async
     public List<Lighting> findAll() {
-        List<Lighting> myClassList = loadData();
+        List<Lighting> myClassList = loadDataFromFile();
         return myClassList;
     }
     @Async
     public Lighting update(Lighting lighting) {
-        List<Lighting> lightings = loadData();
+        List<Lighting> lightings = loadDataFromFile();
         if (!lightings.isEmpty() && lighting != null) {
             var id = 0;
             for (var item : lightings) {
@@ -101,8 +99,8 @@ public class LightingRepository implements ILightingRepository {
                     id,
                     lighting);
         }
-        writeData(lightings);
-        lightings = loadData();
+        writeFileData(lightings);
+        lightings = loadDataFromFile();
         return lightings.stream().filter(x -> (x.getId()) == lighting.getId()).toList().get(0);
     }
 }

@@ -48,14 +48,14 @@ function MainPage(){
             </thead>
             {lights.map(light =>(
             <tr key={light.id}>
-                <td text="${light.Id}"></td>
-                <td text="${light.colorRed}"></td>
-                <td text="${light.colorGreen}"></td>
-                <td text="${light.collorBlue}"></td>
-                <td text="${light.powerWat}"></td>
-                <td text="${light.lux}"></td>
-                <td text="${light.uptimeDays}"></td>
-                <td text="${light.status}"></td>
+                <td text="{light.Id}"></td>
+                <td text="{light.colorRed}"></td>
+                <td text="{light.colorGreen}"></td>
+                <td text="{light.collorBlue}"></td>
+                <td text="{light.powerWat}"></td>
+                <td text="{light.lux}"></td>
+                <td text="{light.uptimeDays}"></td>
+                <td text="{light.status}"></td>
                 <td><Link to="/edit/{light.id}"
                        class="btn3">Редактировать</Link></td>
             </tr>
