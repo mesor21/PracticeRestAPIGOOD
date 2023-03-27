@@ -1,0 +1,11 @@
+h2{
+    display: flex;
+    color: black;
+    font-size: 180px;
+}
+a{
+    color: #000;
+}
+a::after{
+    color: #000;
+}

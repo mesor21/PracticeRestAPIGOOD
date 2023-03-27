@@ -1,31 +1,19 @@
-class App extends Component {
-  state = {
-    clients: []
-  };
+import React from 'react'
+import logo from './logo.svg';
+import {BrowserRouter, Route, Routes, Switch} from "react-router-dom";
+import './App.css';
+import MainPage from './component/admin/mainPage';
+import EditLighting from './component/admin/editLighting';
 
-  async componentDidMount() {
-    const response = await fetch('/clients');
-    const body = await response.json();
-    this.setState({clients: body});
-  }
-
-  render() {
-    const {clients} = this.state;
-    return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="App-intro">
-              <h2>Clients</h2>
-              {clients.map(client =>
-                  <div key={client.id}>
-                    {client.name} ({client.email})
-                  </div>
-              )}
-            </div>
-          </header>
-        </div>
-    );
-  }
+function App() {
+  return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="" element={MainPage}/>
+          <Route path="/editLighting" element={EditLighting}/>
+        </Switch>
+      </BrowserRouter>
+  );
 }
+
 export default App;
