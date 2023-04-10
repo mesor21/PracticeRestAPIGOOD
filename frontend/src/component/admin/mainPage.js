@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Backend from "../../Backend";
 
 function MainPage(){
   const [lightingData, setLightingData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get("/api/main");
-      setLightingData(result.data);
-    };
-    fetchData();
+    Backend.LightingAPI.GetFullList().then((data) => {
+    setLightingData(data)
+    });
   },[]);
+
+  const redirect = (id)=>{
+    window.location.href = '/edit/'+id;
+  };
 
   return (
     <table>
@@ -37,6 +39,10 @@ function MainPage(){
             <td>{lighting.lux}</td>
             <td>{lighting.uptime_days}</td>
             <td>{lighting.status ? "On" : "Off"}</td>
+            <td>
+              <button onClick={()=>redirect(lighting.id)}>
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
