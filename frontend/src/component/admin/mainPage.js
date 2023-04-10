@@ -1,70 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function MainPage(){
-    const [lights, setLights] = useState([]);
-    const [newLight, setNewLight] = useState({
-      colorRed: 0,
-      colorBlue: 0,
-      colorGreen: 0,
-      powerWat: 0,
-      lux: 0,
-      uptimeDays: 0,
-      status: false
-    });
+  const [lightingData, setLightingData] = useState([]);
 
-    // useEffect(() => {
-    //     axios.get('/api/main')
-    //       .then(response => setLights(response.data))
-    //       .catch(error => console.error(error));
-    //   }, []);
-    
-    // const handleInputChange = (event) => {
-    //   const { name, value } = event.target;
-    //   setNewLight({ ...newLight, [name]: value });
-    // };
-    
-    const handleFormSubmit = (event) => {
-      event.preventDefault();
-      axios.post('/api/main', newLight)
-        .then(response => setLights([...lights, response.data]))
-        .catch(error => console.error(error));
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("/api/main");
+      setLightingData(result.data);
     };
-    return (<>
-<div class="blog">
-    <p>Список устройст освещения</p><br></br>
-        <table>
-            <thead>
-            <th>ID</th>
-            <th>R</th>
-            <th>G</th>
-            <th>B</th>
-            <th>Мощность</th>
-            <th>Освещённость</th>
-            <th>Срок службы</th>
-            <th>Статус</th>
-            <th>Редактирование</th>
-            </thead>
-            {lights.map(light =>(
-            <tr key={light.id}>
-                <td text="{light.Id}"></td>
-                <td text="{light.colorRed}"></td>
-                <td text="{light.colorGreen}"></td>
-                <td text="{light.collorBlue}"></td>
-                <td text="{light.powerWat}"></td>
-                <td text="{light.lux}"></td>
-                <td text="{light.uptimeDays}"></td>
-                <td text="{light.status}"></td>
-                <td><Link to="/edit/{light.id}"
-                       class="btn3">Редактировать</Link></td>
-            </tr>
-            ))}
-        </table> 
-    <form onSubmit={handleFormSubmit}>
-        <button class="btn1 button" type="submit">Добавить тему</button>
-    </form>
-</div>
-</>);
-}
+    fetchData();
+  },[]);
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Red Color</th>
+          <th>Blue Color</th>
+          <th>Green Color</th>
+          <th>Power (W)</th>
+          <th>Lux</th>
+          <th>Uptime (Days)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lightingData.map((lighting) => (
+          <tr key={lighting.id}>
+            <td>{lighting.id}</td>
+            <td>{lighting.collor_red}</td>
+            <td>{lighting.collor_blue}</td>
+            <td>{lighting.collor_green}</td>
+            <td>{lighting.power_Wat}</td>
+            <td>{lighting.lux}</td>
+            <td>{lighting.uptime_days}</td>
+            <td>{lighting.status ? "On" : "Off"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
 export default MainPage;

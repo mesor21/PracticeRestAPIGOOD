@@ -61,7 +61,7 @@ public class LightingController {
                 Boolean.getBoolean(status));
 
         lightingService.update(lighting);
-        System.out.println("Save object controller");
+        System.out.println("Save object controller.js");
         return "redirect:/";
 
     }
@@ -87,11 +87,5 @@ public class LightingController {
     public String switchLight(@PathVariable("id") String id) {
         lightingService.switchLight(id);
         return "redirect:/info/get";
-    }
-    //TODO fix. Not working
-    @Async
-    @GetMapping("/api/main")
-    public List<Lighting> getAllList(){
-        return lightingService.getList();
     }
 }
