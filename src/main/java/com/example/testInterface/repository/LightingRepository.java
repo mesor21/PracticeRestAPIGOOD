@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Repository
 public class LightingRepository implements ILightingRepository {
-    private final static String fileName = "/home/lol/university/23.02-23.07/Pract/testInterface/src/main/resources/DataContext.json";
+    private final static String fileName = "src/main/resources/DataContext.json";
     private Gson gson;
 
     private Comparator<Lighting> idComparator = new Comparator<Lighting>() {
