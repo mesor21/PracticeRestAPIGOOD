@@ -9,15 +9,8 @@ public class Lighting {
     private double power_Wat;
     private int lux;
     private int uptime_days;
-    private boolean status;
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
-    public boolean getStatus() {
-        return status;
-    }
 
     public Lighting() {
         this.id=Long.parseLong("-1");
@@ -27,19 +20,16 @@ public class Lighting {
         this.power_Wat=0;
         this.lux=0;
         this.uptime_days=0;
-        this.status=false;
     }
 
-    public Lighting(long id, int collor_red, int collor_blue, int collor_green, double power_Wat, int lux, int uptime_days, boolean status) {
+    public Lighting(long id, int collor_red, int collor_blue, int collor_green, double power_Wat, int lux, int uptime_days) {
         this.id=id;
         this.collor_red = collor_red;
         this.collor_blue = collor_blue;
         this.collor_green = collor_green;
         this.power_Wat = power_Wat;
         this.lux = lux;
-        this.uptime_days = uptime_days;
-        this.status = status;
-    }
+        this.uptime_days = uptime_days;}
 
     public void setId(Long id) {
         this.id = id;

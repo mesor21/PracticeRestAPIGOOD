@@ -8,12 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <header>
 </header>
 <div class="blog">
     <p>Список устройст освещения</p>
-    <form th:action="@{/}" method="GET"><br>
+    <br>
         <table>
             <thead>
             <th>ID</th>
@@ -23,7 +22,6 @@
             <th>Мощность</th>
             <th>Освещённость</th>
             <th>Срок службы</th>
-            <th>Статус</th>
             <th>Редактирование</th>
             </thead>
             <tr th:each="lighting: ${list}">
@@ -34,12 +32,10 @@
                 <td th:text="${lighting.getPower_Wat}"></td>
                 <td th:text="${lighting.getLux}"></td>
                 <td th:text="${lighting.getUptime_days}"></td>
-                <td th:text="${lighting.getStatus}"></td>
                 <td><a th:href="@{/edit/{id}(id=${lighting.getId})}"
                        class="btn3">Редактировать</a></td>
             </tr>
         </table>
-    </form>
     <form th:action="@{/create}" method="post">
         <button class="btn1 button" type="submit" method="post" >Добавить тему</button>
     </form>

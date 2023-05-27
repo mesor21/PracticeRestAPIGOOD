@@ -30,23 +30,12 @@
                     <table style="{width: 100%}">
                         <tr>
                             <td th:text=${lighting.getId}></td>
-                            <td><input th:value="${lighting.getCollor_red}" type="text" id="collor_red"
-                                       name="collor_red">
-                            </td>
-                            <td><input th:value="${lighting.getCollor_green}" type="text" id="collor_green"
-                                       name="collor_green">
-                            </td>
-                            <td><input th:value="${lighting.getCollor_blue}" type="text" id="collor_blue"
-                                       name="collor_blue">
-                            </td>
-                            <td><input th:value="${lighting.getPower_Wat}" type="text" id="power_Wat" name="power_Wat">
-                            </td>
+                            <td><input th:value="${lighting.getCollor_red}" type="text" id="collor_red" name="collor_red"></td>
+                            <td><input th:value="${lighting.getCollor_green}" type="text" id="collor_green" name="collor_green"></td>
+                            <td><input th:value="${lighting.getCollor_blue}" type="text" id="collor_blue" name="collor_blue"></td>
+                            <td><input th:value="${lighting.getPower_Wat}" type="text" id="power_Wat" name="power_Wat"></td>
                             <td><input th:value="${lighting.getLux}" type="text" id="lux" name="lux"></td>
-                            <td><input th:value="${lighting.getUptime_days}" type="text" id="uptime_days"
-                                       name="uptime_days">
-                            </td>
-                            <td>
-                            <td th:value="${lighting.getStatus}" name="status"></td>
+                            <td><input th:value="${lighting.getUptime_days}" type="text" id="uptime_days" name="uptime_days"></td>
                         </tr>
                         <tr>
                             <td colspan="7">
@@ -56,8 +45,8 @@
                                     </a>
                                     <a th:href="'/edit/' + ${lighting.getId}">
                                         <button class="btn1" type="submit"> Подтвердить пользователя
-                                        </button></a>
-
+                                        </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -66,7 +55,6 @@
             </tr>
             </tbody>
         </table>
-
 
     </div>
 </div>
