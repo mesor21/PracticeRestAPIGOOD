@@ -19,6 +19,7 @@ public class LightingController {
     @Async
     @GetMapping("")
     public String mainPage(Model model) {
+        model.addAttribute("coefficientExcess", lightingService.calculateExcessCoefficient());
         model.addAttribute("list", lightingService.getList());
         return "mainPage";
     }
@@ -56,7 +57,6 @@ public class LightingController {
         );
 
         lightingService.update(lighting);
-        System.out.println("Save object controller.js");
         return "redirect:/";
     }
     @Async

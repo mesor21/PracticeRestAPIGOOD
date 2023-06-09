@@ -9,6 +9,8 @@
 </head>
 <body>
 <header>
+    <p>Коэффициент эксцесса для мощности</p>
+    <p th:text="${coefficientExcess}"></p>
 </header>
 <div class="blog">
     <p>Список устройст освещения</p>
@@ -37,7 +39,7 @@
             </tr>
         </table>
     <form th:action="@{/create}" method="post">
-        <button class="btn1 button" type="submit" method="post" >Добавить тему</button>
+        <button class="btn1 button" type="submit" method="post" >Добавить осветительный прибор</button>
     </form>
 </div>
 </body>

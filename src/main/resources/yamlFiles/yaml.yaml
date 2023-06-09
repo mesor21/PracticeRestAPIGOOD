@@ -1,15 +1,36 @@
 ---
-- id: 1
-  collor_red: 12
-  collor_blue: 21
-  collor_green: 21
-  power_Wat: 213.0
-  lux: 123
-  uptime_days: 31
 - id: 2
   collor_red: 0
   collor_blue: 0
   collor_green: 0
-  power_Wat: 0.0
+  power_Wat: 12.0
+  lux: 0
+  uptime_days: 0
+- id: 3
+  collor_red: 0
+  collor_blue: 0
+  collor_green: 0
+  power_Wat: 100.0
+  lux: 0
+  uptime_days: 0
+- id: 4
+  collor_red: 0
+  collor_blue: 0
+  collor_green: 0
+  power_Wat: 52.0
+  lux: 0
+  uptime_days: 0
+- id: 5
+  collor_red: 0
+  collor_blue: 0
+  collor_green: 0
+  power_Wat: 61.0
+  lux: 0
+  uptime_days: 0
+- id: 6
+  collor_red: 0
+  collor_blue: 0
+  collor_green: 0
+  power_Wat: 12.0
   lux: 0
   uptime_days: 0
