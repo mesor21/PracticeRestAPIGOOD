@@ -21,28 +21,30 @@ public class LightingService implements ILightingService {
     public List<Lighting> getList() {
         return jsonRepo.findAll();
     }
+
     @Async
     public void saveNewLighting() {
         Lighting newL = new Lighting();
         jsonRepo.save(newL);
         System.out.println("Create new empty object");
     }
+
     @Async
     public void deleteLighting(String id) {
         jsonRepo.delete(Long.parseLong(id));
     }
-    @Async
 
+    @Async
     public Lighting getLightingID(String id) {
         return jsonRepo.getByID(Long.parseLong(id));
     }
 
-    //middleware
     @Async
     public Lighting update(Lighting lighting) {
         jsonRepo.update(lighting);
         return jsonRepo.getByID(lighting.getId());
     }
+
     @Async
     public void switchLight(String id) {
         Lighting lighting = jsonRepo.getByID(Long.parseLong(id));

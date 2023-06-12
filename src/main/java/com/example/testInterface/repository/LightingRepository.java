@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @Repository
 public class LightingRepository implements ILightingRepository {
+    //TODO change file path!!!!
     private final static String fileName = "C:\\Users\\prodg\\IdeaProjects\\PracticeRestAPIGOOD\\src\\main\\resources\\DataContext.json";
     private Gson gson;
 
@@ -35,8 +36,7 @@ public class LightingRepository implements ILightingRepository {
         var list = new ArrayList<Lighting>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            list = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {
-            }.getType());
+            list = gson.fromJson(bufferedReader, new TypeToken<List<Lighting>>() {}.getType());
             bufferedReader.close();
             System.out.println("Lighting objects have been read from " + fileName + " file.");
             list.sort(idComparator);
@@ -58,18 +58,21 @@ public class LightingRepository implements ILightingRepository {
             e.printStackTrace();
         }
     }
+
     @Async
     public Lighting getByID(Long id) {
         List<Lighting> lightings = loadData();
         var buff = lightings.stream().filter(x -> x.getId() == Integer.parseInt(id.toString())).findFirst().get();
         return buff;
     }
+
     @Async
     public void delete(Long myClassId) {
         List<Lighting> myClassList = loadData();
         myClassList.removeIf(x -> myClassId - 1 >= 0 && x.getId() == myClassId);
         writeData(myClassList);
     }
+
     @Async
     public void save(Lighting x) {
         List<Lighting> myClassList = loadData();
@@ -81,11 +84,13 @@ public class LightingRepository implements ILightingRepository {
         myClassList.add(x);
         writeData(myClassList);
     }
+
     @Async
     public List<Lighting> findAll() {
         List<Lighting> myClassList = loadData();
         return myClassList;
     }
+
     @Async
     public Lighting update(Lighting lighting) {
         List<Lighting> lightings = loadData();
@@ -95,11 +100,9 @@ public class LightingRepository implements ILightingRepository {
                 if (item.getId() == lighting.getId()) {
                     break;
                 }
-                id = id + 1;
+                id++;
             }
-            lightings.set(
-                    id,
-                    lighting);
+            lightings.set(id, lighting);
         }
         writeData(lightings);
         lightings = loadData();

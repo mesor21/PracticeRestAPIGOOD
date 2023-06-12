@@ -28,14 +28,15 @@ public class LightingController {
         return "mainPage";
     }
 
-
     @Async
     @PostMapping("/create")
     public String createNewLighting() {
         lightingService.saveNewLighting();
         System.out.println("Create new object");
         return "redirect:/";
-    }@Async
+    }
+
+    @Async
     @GetMapping("/edit/{id}")
     public String getLighting(@PathVariable("id") String id, Model model) {
         List<Lighting> arr = new ArrayList<>();
@@ -43,6 +44,7 @@ public class LightingController {
         model.addAttribute("lighting", arr);
         return "editLighting";
     }
+
     @Async
     @PostMapping("/edit/{id}")
     public String editLighting(@PathVariable("id") String id,
@@ -68,6 +70,7 @@ public class LightingController {
         return "redirect:/";
 
     }
+
     @Async
     @GetMapping("error")
     public String error() {
@@ -79,12 +82,14 @@ public class LightingController {
         lightingService.deleteLighting(id);
         return "redirect:/";
     }
+
     @Async
     @GetMapping("/info/get")
     public String get4Buisnes(Model model) {
         model.addAttribute("list", lightingService.getList());
         return "list4Buisnes";
     }
+
     @Async
     @GetMapping("/info/switchLight/{id}")
     public String switchLight(@PathVariable("id") String id) {
